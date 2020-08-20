@@ -30,6 +30,7 @@ function createWindow() {
     mainWindow = null
   })
   global.application = new Application()
+  global.application.getAppInfo()
 }
 
 app.on('ready', createWindow)

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { Menu } from 'antd'
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'
 import styles from './navbar.module.scss'
 
+import { AppContext } from '../../App'
+
 const Navbar = () => {
+  const { nginx } = useContext(AppContext)
+
   return (
     <div className={styles.navbar}>
       <div className={styles.logo}>
@@ -19,7 +24,7 @@ const Navbar = () => {
       </div>
       <Menu onClick={() => {}} selectedKeys={['mail']} mode='horizontal'>
         <Menu.Item key='mail' icon={<MailOutlined />}>
-          Nginx
+          <Link to='/nginx'>Nginx</Link>
         </Menu.Item>
         <Menu.Item key='app' icon={<AppstoreOutlined />}>
           Cert
@@ -29,7 +34,9 @@ const Navbar = () => {
 
       <div className={styles.status}>
         <span>nginx status：</span>
-        <span className={styles.active}>running</span>
+        <span className={styles.active}>
+          {nginx.status}({nginx.version})
+        </span>
       </div>
     </div>
   )

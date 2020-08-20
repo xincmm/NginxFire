@@ -1,0 +1,62 @@
+@import '../../../../styles/variable';
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+}
+
+.nginx {
+  cursor: pointer;
+  user-select: none;
+  padding: 10px 10px 10px 25px;
+  border-bottom: 1px solid $border-color;
+
+  &:hover {
+    background-color: $gray-color;
+  }
+
+  span {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+}
+
+.servers {
+  flex: 1;
+}
+
+.server {
+  margin: 0 10px;
+  cursor: pointer;
+
+  span {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  a {
+    color: inherit;
+    display: block;
+    padding: 10px 10px 10px 10px;
+  }
+}
+
+.active {
+  background-color: $gray-color;
+  color: $primary-color;
+}
+
+.new {
+  padding: 10px;
+
+  & button {
+    width: 100%;
+  }
+}

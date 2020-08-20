@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Button } from 'antd'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
 
@@ -8,11 +9,25 @@ require('codemirror/mode/nginx/nginx')
 const { application } = window
 
 const Editor = () => {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+  const server = query.get('server')
+
   const [value, setValue] = useState('')
 
   useEffect(() => {
-    setValue(application.nginx.getMainConf())
-  }, [])
+    if (server) {
+      setValue(application.nginx.getConfByFile(server))
+    } else {
+      setValue(application.nginx.getMainConf())
+    }
+  }, [server])
+
+  const handleEditorChange = (editor, data, value) => {
+    // console.log('editor =>', editor)
+    // console.log('data =>', data)
+    // console.log('value =>', value)
+  }
 
   return (
     <div className={styles.editor}>
@@ -34,7 +49,7 @@ const Editor = () => {
           lineNumbers: true,
           indentUnit: 4,
         }}
-        onChange={(editor, data, value) => {}}
+        onChange={handleEditorChange}
       />
     </div>
   )

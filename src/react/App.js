@@ -1,30 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
 
-import { Navbar, Sidebar, Editor } from './components'
-import { channels } from '../shared/constants'
+import { Nginx } from './pages'
+import { Navbar } from './components'
 import './App.less'
 
-const { ipcRenderer } = window
+const { application } = window
+export const AppContext = createContext({})
 
 function App() {
+  const [appInfo, setAppInfo] = useState({
+    nginx: {
+      status: '',
+      version: '',
+    },
+  })
+
   useEffect(() => {
-    if (!ipcRenderer) {
-      return
-    }
-    ipcRenderer.send(channels.APP_INFO)
-    ipcRenderer.on(channels.APP_INFO, (event, arg) => {
-      ipcRenderer.removeAllListeners(channels.APP_INFO)
-    })
+    setAppInfo(application.getAppInfo())
   }, [])
 
   return (
-    <div className='App'>
-      <Navbar />
-      <div className='Main'>
-        <Sidebar />
-        <Editor />
-      </div>
-    </div>
+    <AppContext.Provider value={appInfo}>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className='Main'>
+            <Switch>
+              <Route path='/nginx'>
+                <Nginx />
+              </Route>
+              <Redirect exact from='/' to='nginx' />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    </AppContext.Provider>
   )
 }
 
