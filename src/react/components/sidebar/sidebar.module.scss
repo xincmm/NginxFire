@@ -1,0 +1,23 @@
+@import '../../styles/variable';
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  border-right: 1px solid $border-color;
+}
+
+.nginx {
+  cursor: pointer;
+  user-select: none;
+  padding: 10px 10px 10px 25px;
+  border-bottom: 1px solid $border-color;
+
+  &:hover {
+    background-color: $gray-color;
+  }
+
+  span {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+}

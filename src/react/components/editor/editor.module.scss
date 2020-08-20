@@ -1,0 +1,39 @@
+.editor {
+  -webkit-app-region: no-drag;
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+
+  :global(.react-codemirror2) {
+    flex: 1;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  :global(.CodeMirror) {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: inherit !important;
+  }
+}
+
+.header {
+  padding: 10px 0;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .info {
+    span {
+      margin-right: 20px;
+    }
+  }
+
+  .action {
+  }
+}

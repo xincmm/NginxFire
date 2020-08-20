@@ -1,0 +1,5 @@
+{
+  "watch": ["electron"],
+  "ext": "js",
+  "delay": "3"
+}
