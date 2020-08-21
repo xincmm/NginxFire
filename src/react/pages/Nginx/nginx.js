@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import { Editor, Sidebar } from './components'
-import NewNginx from '../NewNginx/newNginx'
+import NewServer from '../NewServer/newServer'
 
 const Nginx = () => {
   return (
@@ -13,7 +13,7 @@ const Nginx = () => {
           <Editor />
         </Route>
         <Route path='/nginx/new' exact>
-          <NewNginx />
+          <NewServer />
         </Route>
       </Switch>
     </>

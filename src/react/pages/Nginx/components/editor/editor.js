@@ -3,10 +3,11 @@ import { useLocation } from 'react-router-dom'
 import { Button } from 'antd'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
 
+import { channels } from '../../../../../shared/constants'
 import styles from './editor.module.scss'
 require('codemirror/mode/nginx/nginx')
 
-const { application } = window
+const { application, ipcRenderer } = window
 
 const Editor = () => {
   const location = useLocation()
@@ -14,6 +15,7 @@ const Editor = () => {
   const server = query.get('server')
 
   const [value, setValue] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (server) {
@@ -29,6 +31,15 @@ const Editor = () => {
     // console.log('value =>', value)
   }
 
+  const handleReload = () => {
+    setLoading(true)
+    ipcRenderer.send(channels.NGINX_RELOAD)
+    ipcRenderer.on(channels.NGINX_RELOAD, () => {
+      ipcRenderer.removeAllListeners(channels.NGINX_RELOAD)
+      setLoading(false)
+    })
+  }
+
   return (
     <div className={styles.editor}>
       <div className={styles.header}>
@@ -38,7 +49,9 @@ const Editor = () => {
         </div>
         <div className={styles.action}>
           <Button className='margin-right-sm'>Test</Button>
-          <Button type='primary'>Reload</Button>
+          <Button loading={loading} type='primary' onClick={handleReload}>
+            Reload
+          </Button>
         </div>
       </div>
       <CodeMirror

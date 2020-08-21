@@ -30,7 +30,6 @@ function createWindow() {
     mainWindow = null
   })
   global.application = new Application()
-  global.application.getAppInfo()
 }
 
 app.on('ready', createWindow)
@@ -54,10 +53,20 @@ ipcMain.on(channels.APP_INFO, (event) => {
   })
 })
 
-ipcMain.on(channels.SEND_NOTICE, (event) => {
-  const notice = new Notification({
-    title: '测试',
-    body: '去你妹12的！',
-  })
-  notice.show()
+ipcMain.on(channels.NGINX_RELOAD, async (event) => {
+  try {
+    await global.application.nginx.reload()
+    const notice = new Notification({
+      title: 'congratulation',
+      body: 'reload nginx success 👍',
+    })
+    notice.show()
+  } catch (e) {
+    const notice = new Notification({
+      title: 'heart-broken',
+      body: 'reload nginx failure 😐',
+    })
+    notice.show()
+  }
+  event.sender.send(channels.NGINX_RELOAD)
 })

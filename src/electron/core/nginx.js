@@ -1,10 +1,15 @@
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
+const sudo = require('sudo-prompt')
 const { NGINX_ROOT_PATH, NGINX_CONF_PATH } = require('../utils/paths')
 
 shell.config.execPath = shell.which('node').toString()
 const platform = process.platform
+
+const sudoOptions = {
+  name: 'NginxFire',
+}
 
 class Nginx {
   getStatus() {
@@ -38,6 +43,18 @@ class Nginx {
 
   getConfByFile(file) {
     return fs.readFileSync(path.join(NGINX_CONF_PATH, file)).toString()
+  }
+
+  reload() {
+    return new Promise((resolve, reject) => {
+      sudo.exec('nginx -s reload', sudoOptions, async function (error) {
+        if (error) {
+          console.log('执行！')
+          reject(error)
+        }
+        resolve(true)
+      })
+    })
   }
 }
 

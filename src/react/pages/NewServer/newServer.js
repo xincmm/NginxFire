@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NewNginx = () => {
+const NewServer = () => {
   return (
     <div>
       <span>测试</span>
@@ -8,4 +8,4 @@ const NewNginx = () => {
   )
 }
 
-export default NewNginx
+export default NewServer
