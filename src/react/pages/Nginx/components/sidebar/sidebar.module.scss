@@ -55,8 +55,9 @@
 
 .new {
   padding: 10px;
+  display: flex;
 
-  & button {
-    width: 100%;
+  &:last-child {
+    flex: 1;
   }
 }

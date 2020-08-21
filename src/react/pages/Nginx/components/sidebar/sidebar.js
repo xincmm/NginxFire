@@ -29,8 +29,11 @@ const Sidebar = () => {
       <div className={styles.servers}>
         <div className={styles.new}>
           <Link to='/nginx/new'>
-            <Button type='primary'>new server</Button>
+            <Button type='primary' className='margin-right-sm'>
+              new server
+            </Button>
           </Link>
+          <Button>setting</Button>
         </div>
         {servers.map((server) => (
           <div

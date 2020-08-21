@@ -70,3 +70,10 @@ ipcMain.on(channels.NGINX_RELOAD, async (event) => {
   }
   event.sender.send(channels.NGINX_RELOAD)
 })
+
+ipcMain.on(channels.NGINX_SAVE, async (event, { server, value }) => {
+  try {
+    await global.application.nginx.saveFile(server, value)
+    event.sender.send(channels.NGINX_SAVE)
+  } catch (e) {}
+})

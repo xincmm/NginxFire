@@ -1,3 +1,5 @@
+@import '../../../../styles/variable';
+
 .editor {
   flex: 1;
   -webkit-app-region: no-drag;
@@ -29,8 +31,14 @@
   justify-content: space-between;
 
   .info {
+    display: flex;
+
     span {
       margin-right: 20px;
+    }
+
+    .save {
+      color: $danger-color;
     }
   }
 

@@ -56,6 +56,20 @@ class Nginx {
       })
     })
   }
+
+  saveFile(server, value) {
+    const serverPath = path.join(NGINX_CONF_PATH, server)
+    return new Promise((resolve, reject) => {
+      sudo.exec(`echo "${value}" > ${serverPath}`, sudoOptions, function (
+        error,
+      ) {
+        if (error) {
+          reject(error)
+        }
+        resolve(true)
+      })
+    })
+  }
 }
 
 module.exports = Nginx
